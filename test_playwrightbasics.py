@@ -1,6 +1,6 @@
 import time
 
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page, expect, Playwright
 
 
 def test_playwrightbasics(playwright):
@@ -37,3 +37,16 @@ def test_invalidLogin(page: Page):
     page.get_by_role("button", name="Sign In").click()
     expect(page.get_by_text("Incorrect username/password.")).to_be_visible()
     page.screenshot(path="./loginFailed.png")
+
+def test_firefoxbrowser(playwright: Playwright):
+    browser = playwright.firefox.launch(headless=False)
+    page = browser.new_page()
+    page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+    page.get_by_label("Username:").fill("rahulshettyacademy")
+    page.locator("#password").fill("Learning@830$3mK2")  # id is css locator
+    # page.get_by_role("radiogroup", name="admin").click()
+    page.get_by_role("combobox").select_option("consult")
+    page.get_by_role("checkbox", name="terms").check()
+    page.get_by_role("button", name="Sign In").click()
+    time.sleep(5)
+    page.screenshot(path="./loginSuccessFirefoxBrowser.png")
