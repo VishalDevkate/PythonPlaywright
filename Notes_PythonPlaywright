@@ -1,0 +1,4 @@
+-"playwright" is default fixture, so you need not define it.
+-headless=False -> headed mode....you can see what is going on the browser
+-"page" fixture used chromium engine in headless mode by default. But when using this you can not do some customisations like switching between 2 contexts.
+-CSS Selector: #id or .classname or tagname(not preferred since there are many tagnames in page)
