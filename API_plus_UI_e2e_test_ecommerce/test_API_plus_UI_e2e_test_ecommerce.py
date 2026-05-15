@@ -1,3 +1,4 @@
+import re
 from pydoc import text
 
 from playwright.sync_api import Page, expect
@@ -22,11 +23,17 @@ def test_UI_e2e_test_ecommerce(page: Page):
     page.get_by_role("textbox").nth(1).click()
     page.get_by_role("textbox").nth(1).fill("123")
     page.get_by_role("textbox", name="Select Country").click()
+    page.get_by_role("textbox", name="Select Country").press_sequentially("ind", delay=100)
+    page.get_by_role("button", name=re.compile(" India")).click()
+
+    '''
+    # Filling the field all at once doesnt load the suggesstions, hence timeout error
     page.get_by_role("textbox", name="Select Country").fill("ind")
-    #page.locator(".fa fa-search").filter(has_text=" India").click()
-    #expect(page.get_by_role("button", name=" India")).to_be_visible()
-    page.wait_for_selector(".ta-results list-group ng-star-inserted", state="visible")
-    page.get_by_role("button", name=" India").click()
+    country_option = page.get_by_role("button", name=re.compile("India"))
+    country_option.wait_for(state="visible")
+    country_option.click()
+    '''
+
     page.get_by_text("Place Order").click()
     page.get_by_role("button", name="   ORDERS").click()
     page.get_by_role("rowheader", name="6a04b934965c23b43b1716f7").click()
