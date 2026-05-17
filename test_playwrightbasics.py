@@ -16,7 +16,7 @@ def test_playwrightShortcut(page: Page):
 
 def test_coreLocators(page: Page):
     page.goto("https://rahulshettyacademy.com/loginpagePractise/")
-    page.screenshot(path="./loginpagePractise.png")
+    page.screenshot(path="./screenshots/loginpagePractise.png")
     page.get_by_label("Username:").fill("rahulshettyacademy")
     page.locator("#password").fill("Learning@830$3mK2")   #id is css locator
     #page.get_by_role("radiogroup", name="admin").click()
@@ -24,11 +24,11 @@ def test_coreLocators(page: Page):
     page.get_by_role("checkbox", name="terms").check()
     page.get_by_role("button", name="Sign In").click()
     time.sleep(5)
-    page.screenshot(path="./loginSuccess.png")
+    page.screenshot(path="./screenshots/loginSuccess.png")
 
 def test_invalidLogin(page: Page):
     page.goto("https://rahulshettyacademy.com/loginpagePractise/")
-    page.screenshot(path="./loginpagePractise.png")
+    page.screenshot(path="./screenshots/loginpagePractise.png")
     page.get_by_label("Username:").fill("rahulshettyacademy")
     page.locator("#password").fill("Learnisds")   #id is css locator
     #page.get_by_role("radiogroup", name="admin").click()
@@ -36,7 +36,7 @@ def test_invalidLogin(page: Page):
     page.get_by_role("checkbox", name="terms").check()
     page.get_by_role("button", name="Sign In").click()
     expect(page.get_by_text("Incorrect username/password.")).to_be_visible()
-    page.screenshot(path="./loginFailed.png")
+    page.screenshot(path="./screenshots/loginFailed.png")
 
 def test_firefoxbrowser(playwright: Playwright):
     browser = playwright.firefox.launch(headless=False)
@@ -49,4 +49,4 @@ def test_firefoxbrowser(playwright: Playwright):
     page.get_by_role("checkbox", name="terms").check()
     page.get_by_role("button", name="Sign In").click()
     time.sleep(5)
-    page.screenshot(path="./loginSuccessFirefoxBrowser.png")
+    page.screenshot(path="./screenshots/loginSuccessFirefoxBrowser.png")
