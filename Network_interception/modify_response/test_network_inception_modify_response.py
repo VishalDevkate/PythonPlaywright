@@ -28,9 +28,6 @@ def screenshot_path():
     # 3. Create the directory automatically if it doesn't exist yet
     SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 4. Define your final screenshot file path
-    # screenshot_path = SCREENSHOT_DIR / f"{file_name}"
-
     return SCREENSHOT_DIR
 
 def test_orders_page_without_interception(page: Page):
@@ -60,7 +57,6 @@ def modify_order_response(route):
     route.fulfill(
         json=fake_payload_response
     )
-    # Click on Orders link
 
 def test_orders_page_with_interception(page: Page):
 
