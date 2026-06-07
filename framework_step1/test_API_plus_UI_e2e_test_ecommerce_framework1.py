@@ -1,5 +1,4 @@
-
-
+import json
 import time
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser, context
@@ -17,6 +16,12 @@ def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright):
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
+
+    #json->util->python object->use in test
+    with open("framework_step1/data/credentials.json") as f:
+        json_data = json.load(f)
+        print("json_data: ", json_data)
+
     page.goto("https://rahulshettyacademy.com/client/")
     page.get_by_placeholder("email@example.com").fill("v.d@gmail.com")
     page.get_by_placeholder("enter your passsword").fill("RahulShetty@2026")
