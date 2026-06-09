@@ -1,15 +1,25 @@
 import json
 import time
+
+import pytest
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser, context
 
+from framework_step1.pageObjects.login import loginPage
 from framework_step1.utils.apiBase import ApiUtils
 
+#json->util->python object->use in test
+with open("framework_step1/data/credentials.json") as f:
+    json_data = json.load(f)
+    print("json_data: ", json_data)
+    user_credentials_list = json_data['user_credentials']
+    print("jason_data['user_credentials'][0]['userEmail']: ", json_data['user_credentials'][0]['userEmail'])
 
-def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright):
+@pytest.mark.parametrize("user_credentials", user_credentials_list)
+def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials) :
     #1.with API calls, create order
     utils = ApiUtils()
-    created_order_id = utils.createorder(playwright)
+    created_order_id = utils.createorder(playwright, user_credentials)
 
     #2.with UI automation, verify latest order ID on Orders List and View the respective Order details
     #login
@@ -17,52 +27,28 @@ def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright):
     context = browser.new_context()
     page = context.new_page()
 
-    #json->util->python object->use in test
-    with open("framework_step1/data/credentials.json") as f:
-        json_data = json.load(f)
-        print("json_data: ", json_data)
-
-    page.goto("https://rahulshettyacademy.com/client/")
-    page.get_by_placeholder("email@example.com").fill("v.d@gmail.com")
-    page.get_by_placeholder("enter your passsword").fill("RahulShetty@2026")
-    page.locator("#login").click()
+    login_page = loginPage(page)
+    login_page.navigate()
+    dashboard_page = login_page.login(user_credentials['userEmail'], user_credentials['userPassword'])
 
     #Click on Orders link
-    page.get_by_role("button", name="  ORDERS").click()
+    my_orders = dashboard_page.click_orders()
 
     #get rows
-    expect(page.get_by_role("row").nth(0)).to_be_visible()
-    rows = page.get_by_role("row")
-    print(f'no of rows in webtable: {rows.count()-1}')
+    my_orders.get_no_of_orders_on_page()
 
-    #get first row
-    #top_row = rows.nth(1)
-    top_row = rows.filter(has_text=created_order_id)
-
-    #Get latest order ID
-    first_order_id = top_row.locator("th").inner_text()
-    #expect(top_row.locator("th").nth(0)).not_to_be_empty()
-    #first_order_id = top_row.locator("cell").nth(0).inner_text().strip()
-    print(f'Latest order ID in Orders list table: {first_order_id}')
+    first_order_id = my_orders.get_latest_order_id()
     assert first_order_id.__eq__(created_order_id)
 
-    #View the respective Order details
-    view_button = top_row.locator("td").locator("button").filter(has_text="View")
-    view_button.click()
+    #View the latest Order details
+    order_details = my_orders.get_latest_order_details()
 
     #verify content from order details
-    #element has two separate classes: col-text and -main. So you need to chain them together with dots (.col-text.-main)
-    expect(page.locator(".col-text.-main")).to_be_visible()
-    order_summary_order_id = page.locator(".col-text.-main").inner_text()
-
-    # Or Locate by the primary class, then filter by the secondary class match
-    #order_summary_order_id = page.locator(".col-text").filter(has_not=page.locator(":not(.-main)")).inner_text()
-
-    print(f'order ID in order Summary: {order_summary_order_id}')
+    order_summary_order_id = order_details.get_order_id()
     assert order_summary_order_id == first_order_id
 
     #Verify message on Order summary
-    expect(page.locator(".tagline")).to_contain_text("Thank you for Shopping With Us")
+    assert order_details.get_message().__eq__("Thank you for Shopping With Us")
 
     #verify Product Ordered
     order_summary_product_name = page.locator(".artwork-card-info").locator(".title").inner_text()

@@ -1,23 +1,19 @@
 from playwright.sync_api import Playwright, sync_playwright
 
 orderPayload = {"orders": [{"country": "India", "productOrderedId": "6960ea76c941646b7a8b3dd5"}]}
-loginPayload = {
-    "userEmail": "v.d@gmail.com",
-    "userPassword": "RahulShetty@2026"
-}
 
 class ApiUtils:
-    def getToken(self, request_context):
-        response = request_context.post("/api/ecom/auth/login", headers={"Content-Type": "application/json"}, data=loginPayload)
+    def getToken(self, request_context, user_credentials):
+        response = request_context.post("/api/ecom/auth/login", headers={"Content-Type": "application/json"}, data=user_credentials)
         assert response.ok
         token = response.json()["token"]
         return token
 
 
-    def createorder(self, playwright: Playwright):
+    def createorder(self, playwright: Playwright, user_credentials):
         api_request_context = playwright.request.new_context(base_url="https://rahulshettyacademy.com/")
 
-        token = self.getToken(api_request_context)
+        token = self.getToken(api_request_context, user_credentials)
 
         response = api_request_context.post("/api/ecom/order/create-order",
                                  headers={"Content-Type": "application/json",
