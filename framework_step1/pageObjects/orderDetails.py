@@ -1,5 +1,8 @@
 from playwright.sync_api import expect
 
+from framework_step1.pageObjects.dashboard import dashboardPage
+from framework_step1.pageObjects.myorders import myOrdersPage
+
 
 class orderDetailsPage:
     def __init__(self, page):
@@ -21,3 +24,14 @@ class orderDetailsPage:
         print(f'Message: {msg}')
         return msg
         #expect(self.page.locator(".tagline")).to_contain_text("Thank you for Shopping With Us")
+
+    def get_ordered_product_details(self):
+        order_summary_product_name = self.page.locator(".artwork-card-info").locator(".title").inner_text()
+        print(f'product name in order Summary: {order_summary_product_name}')
+        order_summary_product_price = self.page.locator(".artwork-card-info").locator(".price").inner_text()
+        print(f'product price in order Summary: {order_summary_product_price}')
+        return order_summary_product_name, order_summary_product_price
+
+    def click_Home(self):
+        self.page.locator(".fa.fa-home").click()
+        return dashboardPage(self.page)

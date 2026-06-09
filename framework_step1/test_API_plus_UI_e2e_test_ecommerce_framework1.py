@@ -51,18 +51,13 @@ def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials
     assert order_details.get_message().__eq__("Thank you for Shopping With Us")
 
     #verify Product Ordered
-    order_summary_product_name = page.locator(".artwork-card-info").locator(".title").inner_text()
-    print(f'product name in order Summary: {order_summary_product_name}')
-    order_summary_product_price = page.locator(".artwork-card-info").locator(".price").inner_text()
-    print(f'product price in order Summary: {order_summary_product_price}')
+    order_summary_product_name, order_summary_product_price = order_details.get_ordered_product_details()
 
     # go to Home
-    page.locator(".fa.fa-home").click()
+    dashboard_page = order_details.click_Home()
 
     #find out a product price with above product name
-    expect(page.locator(".card-body").filter(has_text=order_summary_product_name.strip())).to_be_visible()
-    product_price = page.locator(".card-body").filter(has_text=order_summary_product_name.strip()).locator(".text-muted").inner_text()
-    print(f'product price on home page: {product_price}')
+    product_price = dashboard_page.get_product_details(order_summary_product_name)
 
     assert product_price == order_summary_product_price
 
