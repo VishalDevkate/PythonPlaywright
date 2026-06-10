@@ -1,9 +1,5 @@
 from playwright.sync_api import expect
 
-from framework_step1.pageObjects.dashboard import dashboardPage
-from framework_step1.pageObjects.myorders import myOrdersPage
-
-
 class orderDetailsPage:
     def __init__(self, page):
         self.page = page
@@ -32,6 +28,12 @@ class orderDetailsPage:
         print(f'product price in order Summary: {order_summary_product_price}')
         return order_summary_product_name, order_summary_product_price
 
+
+    #For below method to be in this class, it needs to import dashboardPage class. So it results in Circular Import (also known as a cyclic dependency) problem.
+    #So instead of importing at top, for a temporary fix i moved the import statement inside method
+    #more suitable approach is Avoid Returning New Page Instances in pageObject class methods. Let your test script handle the instantiation instead.
+    #As frameworks grow massive, having to instantiate 10 different pages in a single test script can get repetitive. To solve this, advanced industry frameworks use a Page Manager (or Application) class. Instead of importing pages into each other, you create one master class that holds them all
     def click_Home(self):
+        from framework_step1.pageObjects.dashboard import dashboardPage
         self.page.locator(".fa.fa-home").click()
         return dashboardPage(self.page)
