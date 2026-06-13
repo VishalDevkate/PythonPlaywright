@@ -34,6 +34,6 @@ class orderDetailsPage:
     #more suitable approach is Avoid Returning New Page Instances in pageObject class methods. Let your test script handle the instantiation instead.
     #As frameworks grow massive, having to instantiate 10 different pages in a single test script can get repetitive. To solve this, advanced industry frameworks use a Page Manager (or Application) class. Instead of importing pages into each other, you create one master class that holds them all
     def click_Home(self):
-        from framework_step1.pageObjects.dashboard import dashboardPage
+        from pageObjects.dashboard import dashboardPage
         self.page.locator(".fa.fa-home").click()
         return dashboardPage(self.page)

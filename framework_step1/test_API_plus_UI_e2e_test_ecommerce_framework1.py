@@ -5,11 +5,11 @@ import pytest
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser, context
 
-from framework_step1.pageObjects.login import loginPage
-from framework_step1.utils.apiBase import ApiUtils
+from pageObjects.login import loginPage
+from utils.apiBase import ApiUtils
 
 #json->util->python object->use in test
-with open("framework_step1/data/credentials.json") as f:
+with open("data/credentials.json") as f:
     json_data = json.load(f)
     print("json_data: ", json_data)
     user_credentials_list = json_data['user_credentials']

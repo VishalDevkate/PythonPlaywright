@@ -1,4 +1,4 @@
-from framework_step1.pageObjects.dashboard import dashboardPage
+from pageObjects.dashboard import dashboardPage
 
 
 class loginPage:
