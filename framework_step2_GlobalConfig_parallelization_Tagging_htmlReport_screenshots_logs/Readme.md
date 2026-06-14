@@ -1,1 +1,1 @@
-in step1 we have added page objects, data driven and parameterization 
+ in step2 we have added GlobalConfig, parallelization, Tagging, htmlReport, screenshots, logs
