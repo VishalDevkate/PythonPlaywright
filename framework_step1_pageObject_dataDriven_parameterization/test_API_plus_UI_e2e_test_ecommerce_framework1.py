@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 import pytest
@@ -8,8 +9,12 @@ from pytest_playwright.pytest_playwright import browser, context
 from pageObjects.login import loginPage
 from utils.apiBase import ApiUtils
 
+# Always resolve relative to this file’s directory
+base_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(base_dir, "data", "credentials.json")
+
 #json->util->python object->use in test
-with open("data/credentials.json") as f:
+with open(file_path) as f:
     json_data = json.load(f)
     print("json_data: ", json_data)
     user_credentials_list = json_data['user_credentials']
