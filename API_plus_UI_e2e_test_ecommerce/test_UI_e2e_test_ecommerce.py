@@ -30,7 +30,7 @@ def test_UI_e2e_test_ecommerce(page: Page):
     country_option.wait_for(state="visible")
     country_option.click()
     '''
-    
+
     page.get_by_text("Place Order").click()
     page.get_by_role("button", name="   ORDERS").click()
-    page.get_by_role("rowheader", name="6a04b934965c23b43b1716f7").click()
+    page.get_by_role("rowheader", name="6a04b934965c23b43b1716f7").click() #this may not exist, so error out
