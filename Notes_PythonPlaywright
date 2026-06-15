@@ -2,3 +2,17 @@
 -headless=False -> headed mode....you can see what is going on the browser
 -"page" fixture used chromium engine in headless mode by default. But when using this you can not do some customisations like switching between 2 contexts.
 -CSS Selector: #id or .classname or tagname(not preferred since there are many tagnames in page)
+-Keep imports absolute (never rely on relative .. imports in test suites).
+-Run pytest from the project root or parent folder.
+-Use pytest.ini or pyproject.toml to enforce consistent paths across local dev, PyCharm, and CI/CD.
+-Keep __init__.py files empty unless you want to expose shortcuts.
+-Put shared fixtures in conftest.py at the package root → pytest auto‑discovers them.
+-Use session scope for static data (like credentials, configs).
+-Keep fixtures modular: one fixture per responsibility (credentials, browser, API client, etc.).
+-Avoid hard‑coding paths → always resolve relative to __file__.
+-for multiproject setup:
+    >One pytest.ini per project → isolates test discovery.
+    >Run "pytest" command from project root or specify the project folder explicitly if running from parent folder(PycharmProjects).
+    e.g. pytest PythonPlaywright
+    >Use conftest.py per project for fixtures local to that project.
+    >CI/CD pipelines run pytest per project, not globally.
