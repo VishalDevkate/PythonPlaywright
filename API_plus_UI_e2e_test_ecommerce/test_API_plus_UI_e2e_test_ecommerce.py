@@ -4,7 +4,7 @@ import time
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser, context
 
-from utils.apiBase import ApiUtils
+from API_plus_UI_e2e_test_ecommerce.utils.apiBase import ApiUtils
 
 
 def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright):
