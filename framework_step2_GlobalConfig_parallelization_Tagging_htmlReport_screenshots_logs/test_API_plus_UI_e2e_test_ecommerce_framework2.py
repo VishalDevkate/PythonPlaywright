@@ -20,18 +20,13 @@ with open(file_path) as f:
     print("jason_data['user_credentials'][0]['userEmail']: ", json_data['user_credentials'][0]['userEmail'])
 
 @pytest.mark.parametrize("user_credentials", user_credentials_list)
-def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials) :
-    #1.with API calls, create order
+def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials, browser_instance) :
+    #with API calls, create order
     utils = ApiUtils()
     created_order_id = utils.createorder(playwright, user_credentials)
 
-    #2.with UI automation, verify latest order ID on Orders List and View the respective Order details
-    #login
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
 
-    login_page = loginPage(page)
+    login_page = loginPage(browser_instance)
     login_page.navigate()
     dashboard_page = login_page.login(user_credentials['userEmail'], user_credentials['userPassword'])
 
@@ -64,5 +59,3 @@ def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials
     product_price = dashboard_page.get_product_details(order_summary_product_name)
 
     assert product_price == order_summary_product_price
-
-    context.close()
