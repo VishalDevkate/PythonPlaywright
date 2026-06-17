@@ -11,7 +11,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--browser_name", action="store", default="chrome", help="browser type")
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="function")  #need not specify scope, since the default scope is function
 def browser_instance(playwright: Playwright, request):
     # launch browser from parameter of command line argument
     # pytest --browser_name firefox
