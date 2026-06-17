@@ -1,25 +1,48 @@
--"playwright" is default fixture, so you need not define it.
--headless=False -> headed mode....you can see what is going on the browser
--"page" fixture used chromium engine in headless mode by default. But when using this you can not do some customisations like switching between 2 contexts.
--CSS Selector: #id or .classname or tagname(not preferred since there are many tagnames in page)
--Keep imports absolute (never rely on relative .. imports in test suites).
--Run pytest from the project root or parent folder.
--Use pytest.ini or pyproject.toml to enforce consistent paths across local dev, PyCharm, and CI/CD.
--Keep __init__.py files empty unless you want to expose shortcuts.
--Put shared fixtures in conftest.py at the package root → pytest auto‑discovers them.
--Use session scope for static data (like credentials, configs).
--Keep fixtures modular: one fixture per responsibility (credentials, browser, API client, etc.).
--Avoid hard‑coding paths → always resolve relative to __file__.
--for multiproject setup:
-    >One pytest.ini per project → isolates test discovery.
-    >Run "pytest" command from project root or specify the project folder explicitly if running from parent folder(PycharmProjects).
+>"playwright" is default fixture, so you need not define it.
+
+>headless=False -> headed mode....you can see what is going on the browser
+
+>"page" fixture used chromium engine in headless mode by default. But when using this you can not do some customisations like switching between 2 contexts.
+
+>CSS Selector: #id or .classname or tagname(not preferred since there are many tagnames in page)
+
+>Keep imports absolute (never rely on relative .. imports in test suites).
+
+>Run pytest from the project root or parent folder.
+
+>Use pytest.ini or pyproject.toml to enforce consistent paths across local dev, PyCharm, and CI/CD.
+
+>Keep __init__.py files empty unless you want to expose shortcuts.
+
+>Put shared fixtures in conftest.py at the package root → pytest auto‑discovers them.
+
+>Use session scope for static data (like credentials, configs).
+
+>Keep fixtures modular: one fixture per responsibility (credentials, browser, API client, etc.).
+
+>Avoid hard‑coding paths → always resolve relative to __file__.
+
+>for multiproject setup:
+    -One pytest.ini per project → isolates test discovery.
+    -Run "pytest" command from project root or specify the project folder explicitly if running from parent folder(PycharmProjects).
     e.g. pytest PythonPlaywright
-    >Use conftest.py per project for fixtures local to that project.
-    >CI/CD pipelines run pytest per project, not globally.
--ide level run mode changes wont be considered if you are running tests from command line
--add markers such as smoke, regression and register them in pytest.ini
+    -Use conftest.py per project for fixtures local to that project.
+    -CI/CD pipelines run pytest per project, not globally.
+
+>ide level run mode changes wont be considered if you are running tests from command line
+
+>"-m" stands for marker expression
+add markers such as smoke, regression and register them in pytest.ini
 to run particular marker tests use below cmd command
 pytest -m smoke
-to run particular tests with particular keyword in test name/(or test folder?)
+You can combine marker expressions:
+pytest -m "smoke or regression" → runs both smoke and regression tests.
+pytest -m "smoke and not regression" → runs tests marked as smoke but excludes regression.
+
+>"-k" is a keyword expression filter.
+to run particular tests with particular keyword in function names, class names, or test file names)
 Below command also executed test_javascript_injection_of_sessionCookies.py may be because it is in Network_interception folder
 pytest -k network
+more examples:
+pytest -k "abc or xyz" → runs tests with "abc" or "xyz" in their names.
+pytest -k "abc and not xyz" → runs tests with "abc" but excludes those with "xyz".
