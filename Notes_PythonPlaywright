@@ -17,3 +17,9 @@
     >Use conftest.py per project for fixtures local to that project.
     >CI/CD pipelines run pytest per project, not globally.
 -ide level run mode changes wont be considered if you are running tests from command line
+-add markers such as smoke, regression and register them in pytest.ini
+to run particular marker tests use below cmd command
+pytest -m smoke
+to run particular tests with particular keyword in test name/(or test folder?)
+Below command also executed test_javascript_injection_of_sessionCookies.py may be because it is in Network_interception folder
+pytest -k network

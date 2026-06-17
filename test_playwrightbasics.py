@@ -1,5 +1,6 @@
 import time
 
+import pytest
 from playwright.sync_api import Page, expect, Playwright
 
 
@@ -14,6 +15,9 @@ def test_playwrightShortcut(page: Page):
     page.goto("https://www.rahulshettyacademy.com")
     page.close()
 
+#below test marked as smoke test. So we can only run smoke tests from command line when needed
+#pytest -m smoke
+@pytest.mark.smoke
 def test_coreLocators(page: Page):
     page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     page.screenshot(path="./screenshots/loginpagePractise.png")

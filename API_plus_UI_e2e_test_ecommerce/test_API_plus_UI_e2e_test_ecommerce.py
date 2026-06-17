@@ -1,12 +1,16 @@
 
 
 import time
+
+import pytest
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser, context
 
 from API_plus_UI_e2e_test_ecommerce.utils.apiBase import ApiUtils
 
-
+#below test marked as smoke test. So we can only run smoke tests from command line when needed
+#pytest -m smoke
+@pytest.mark.smoke
 def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright):
     #1.with API calls, create order
     utils = ApiUtils()
