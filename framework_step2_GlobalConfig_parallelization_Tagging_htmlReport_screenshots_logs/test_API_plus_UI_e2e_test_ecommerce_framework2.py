@@ -27,7 +27,7 @@ def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials
 
 
     login_page = loginPage(browser_instance)
-    login_page.navigate()
+    #login_page.navigate()   #since this is moved to browser_instance fixture
     dashboard_page = login_page.login(user_credentials['userEmail'], user_credentials['userPassword'])
 
     #Click on Orders link
