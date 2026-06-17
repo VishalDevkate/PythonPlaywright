@@ -18,7 +18,7 @@ def screenshot_path():
 def modify_request(route):
     route.continue_(url="https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id=6711e249ae2afd4c0b916fb0")
 
-def test_network_inception_modify_request(page: Page):
+def test_network_interception_modify_request(page: Page):
     #login
     page.goto("https://rahulshettyacademy.com/client/")
     page.get_by_placeholder("email@example.com").fill("v.d@gmail.com")
