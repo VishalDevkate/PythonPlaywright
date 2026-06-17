@@ -16,3 +16,4 @@
     e.g. pytest PythonPlaywright
     >Use conftest.py per project for fixtures local to that project.
     >CI/CD pipelines run pytest per project, not globally.
+-ide level run mode changes wont be considered if you are running tests from command line

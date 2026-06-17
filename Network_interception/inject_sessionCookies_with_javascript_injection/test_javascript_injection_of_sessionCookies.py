@@ -1,5 +1,5 @@
 from playwright.sync_api import Playwright
-from PythonPlaywright.API_plus_UI_e2e_test_ecommerce.utils.apiBase import ApiUtils
+from API_plus_UI_e2e_test_ecommerce.utils.apiBase import ApiUtils
 from API_plus_UI_e2e_test_ecommerce.utils.screenshot_util import screenshot_path
 
 
