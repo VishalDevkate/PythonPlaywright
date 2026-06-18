@@ -46,3 +46,27 @@ pytest -k network
 more examples:
 pytest -k "abc or xyz" → runs tests with "abc" or "xyz" in their names.
 pytest -k "abc and not xyz" → runs tests with "abc" but excludes those with "xyz".
+
+>"-n" no. of workers
+running tests in parallel
+needs external package pytest-xdist to be installed.
+Bellow command will run 3 tests in parallel
+pytest -n 3
+Parallel execution works best when tests are independent/atomic (no shared state, no reliance on order).
+pytest -n auto → automatically uses as many workers as CPU cores.
+
+>"--html" -> to generate html report
+needs external package pytest-html to be installed.
+below command will generate report.html in reports folder. The additional CSS/JS is saved in assets folder.
+pytest --html=reports/report.html
+Extra options:
+--self-contained-html → embeds CSS/JS directly into the report so it’s portable (no external assets).
+--html=report.html --css=style.css → lets you apply custom styling.
+e.g. pytest --html=reports/report.html --self-contained-html
+pytest --html=reports/report.html --self-contained-html -k network
+below is pytest.ini setup that automatically generates these HTML reports every time you run tests, so you don’t have to type the flag manually
+# pytest.ini
+[pytest]
+addopts = --html=reports/report.html --self-contained-html
+Here addopts → adds default command‑line options for every pytest run so you dont have to specify them separately each time while running tests.
+
