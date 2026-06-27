@@ -70,3 +70,13 @@ below is pytest.ini setup that automatically generates these HTML reports every 
 addopts = --html=reports/report.html --self-contained-html
 Here addopts → adds default command‑line options for every pytest run so you dont have to specify them separately each time while running tests.
 
+>"--tracing" -> to record the traces
+Available options to record a trace:
+'on-first-retry' - Record a trace only when retrying a test for the first time.
+'on-all-retries' - Record traces for all test retries.
+'off' - Do not record a trace.
+'on' - Record a trace for each test. (not recommended as it's performance heavy)
+'retain-on-failure' - Record a trace for each test, but remove it from successful test runs.
+e.g. pytest --tracing retain-on-failure --html=reports/report.html --self-contained-html
+after execution launch https://trace.playwright.dev/ and open trace.zip folder
+
