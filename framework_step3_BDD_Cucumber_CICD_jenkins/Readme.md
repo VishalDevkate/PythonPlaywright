@@ -1,0 +1,1 @@
+ in step2 we have added GlobalConfig, parallelization, Tagging, htmlReport, screenshots, logs
