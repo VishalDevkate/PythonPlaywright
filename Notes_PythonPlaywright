@@ -80,3 +80,13 @@ Available options to record a trace:
 e.g. pytest --tracing retain-on-failure --html=reports/report.html --self-contained-html
 after execution launch https://trace.playwright.dev/ and open trace.zip folder
 
+>pytest-bdd
+-pytest-bdd implements a subset of the Gherkin language to enable automating project requirements testing and to facilitate behavioral driven development.
+-pytest-bdd is a test framework plugin for pytest that allows teams to implement Behavior-Driven Development (BDD) by executing Gherkin human-readable feature files directly within Python. Unlike standalone BDD runners like behave or Cucumber, it integrates seamlessly with the full power, ecosystem, and plugins of standard pytest.
+-Test scenarios are written in Gherkin “.feature” files using plain language. Each Given, When, and Then step is “glued” to a step definition – a Python function decorated by a matching string in a step definition module.
+This means that there is a separation of concerns between test cases and test code. Gherkin steps may also be reused by multiple scenarios.
+-feature can be considered as test suite which can contain multiple scenarios.
+e.g. Feature "blog" can contain multiple scenarios related to blog
+-install required plugin for your IDE to recognise file as feature file.(show in different icon in explorer. not sure if really necessary?)
+-Scenario Outline: used when there is some data need to be passed
+

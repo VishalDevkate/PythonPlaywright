@@ -1,1 +1,1 @@
- in step2 we have added GlobalConfig, parallelization, Tagging, htmlReport, screenshots, logs
+ in step3 we have added BDD with pytest-bdd and CI/CD with jenkins
