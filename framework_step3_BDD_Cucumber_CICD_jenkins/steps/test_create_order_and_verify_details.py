@@ -1,3 +1,7 @@
+'''
+Step definition file here itself it acting as test. So we need to run this file
+'''
+
 import pytest
 from pytest_bdd import given, when, then, parsers, scenarios
 
@@ -37,6 +41,12 @@ def navigate_to_orders_page(shared_data):
     # Click on Orders link
     my_orders = dashboard_page.click_orders()
     shared_data['my_orders'] = my_orders
+
+@when('user checks no of orders on the page')
+def check_no_of_orders(shared_data):
+    my_orders = shared_data['my_orders']
+    # get rows
+    my_orders.get_no_of_orders_on_page()
 
 @when('user clicks on latest order')
 def click_on_latest_order(shared_data):
