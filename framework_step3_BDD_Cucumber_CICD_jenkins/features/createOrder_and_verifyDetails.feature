@@ -14,3 +14,10 @@ Feature: create order and verify details
       | username         | password          |
       | v.d@gmail.com    | RahulShetty@2026  |
       | anshika@gmail.com| Iamking@000       |
+
+
+    #Other scenarios/steps to add
+    #verify Product Ordered
+    # go to Home
+    #find out a product price with above product name
+
