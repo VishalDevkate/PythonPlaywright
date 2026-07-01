@@ -90,3 +90,12 @@ e.g. Feature "blog" can contain multiple scenarios related to blog
 -install required plugin for your IDE to recognise file as feature file.(show in different icon in explorer. not sure if really necessary?)
 -Scenario Outline: used when there is some data need to be passed
 
+>jenkins (CI/CD)
+-always download the latest LTS(Long term support) version and .war file(generic java package)
+-Check Hardware and Software requirements section and install the required java version for above LTS
+-got to .war file location install jenkins with below command
+java -jar jenkins.war --httpPort=9090
+here we have mentioned to run jenkins server on port 9090 while running on local. you can mention any port.
+-
+
+
