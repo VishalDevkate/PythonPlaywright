@@ -19,6 +19,7 @@ with open(file_path) as f:
     user_credentials_list = json_data['user_credentials']
     print("jason_data['user_credentials'][0]['userEmail']: ", json_data['user_credentials'][0]['userEmail'])
 
+@pytest.mark.frameworktests
 @pytest.mark.parametrize("user_credentials", user_credentials_list)
 def test_API_plus_UI_e2e_test_ecommerce(playwright: Playwright, user_credentials, browser_instance) :
     #with API calls, create order
