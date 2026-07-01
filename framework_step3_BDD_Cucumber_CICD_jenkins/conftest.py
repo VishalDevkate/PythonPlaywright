@@ -8,10 +8,12 @@ def user_credentials(request):
     return request.param
 
 def pytest_addoption(parser):
-    parser.addoption(
-        "--browser_name", action="store", default="chrome", help="browser type")
-    parser.addoption(
-        "--url_name", action="store", default="https://rahulshettyacademy.com/client/", help="page url")
+    # Check if the option is already added to prevent the ValueError. I think it is considering the browser_name added from framework_step2, so giving value error without below check.
+    if not any(opt.dest == "browser_name" for opt in parser._anonymous.options):
+        parser.addoption(
+            "--browser_name", action="store", default="chrome", help="browser type")
+        parser.addoption(
+            "--url_name", action="store", default="https://rahulshettyacademy.com/client/", help="page url")
 
 @pytest.fixture(scope="function")  #need not specify scope, since the default scope is function
 def browser_instance(playwright: Playwright, request):
