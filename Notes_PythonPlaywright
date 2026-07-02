@@ -96,6 +96,9 @@ e.g. Feature "blog" can contain multiple scenarios related to blog
 -got to .war file location install jenkins with below command
 java -jar jenkins.war --httpPort=9090
 here we have mentioned to run jenkins server on port 9090 while running on local. you can mention any port.
--
+-Even though a Freestyle job doesn't have a Jenkinsfile, Jenkins stores the entire job configuration as an XML file behind the scenes. You can download this configuration directly via the URL:
+https://your-jenkins-server.com/job/Your-Job-Name/config.xml
+
+
 
 
