@@ -96,8 +96,14 @@ e.g. Feature "blog" can contain multiple scenarios related to blog
 -got to .war file location install jenkins with below command
 java -jar jenkins.war --httpPort=9090
 here we have mentioned to run jenkins server on port 9090 while running on local. you can mention any port.
+-in Build steps, select execute shell and give the same cmd command to run playwright tests
+e.g. pytest --tracing retain-on-failure --html=reports/report.html --self-contained-html
 -Even though a Freestyle job doesn't have a Jenkinsfile, Jenkins stores the entire job configuration as an XML file behind the scenes. You can download this configuration directly via the URL:
 https://your-jenkins-server.com/job/Your-Job-Name/config.xml
+http://localhost:9090/job/PythonPlaywright_all_tests/config.xml
+-parameterize the jenkins job(command) with choice parameter($<parameter_name>). It will then appear in dropdown when you do build with parameters.
+e.g. you can parameterize the markers with coice options such as smoke, functional, regression, frameworktests, negative, billing etc.
+pytest --tracing retain-on-failure -m "$marker" --html=reports/report.html --self-contained-html
 
 
 
