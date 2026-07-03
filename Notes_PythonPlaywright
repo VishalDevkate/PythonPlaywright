@@ -102,8 +102,28 @@ e.g. pytest --tracing retain-on-failure --html=reports/report.html --self-contai
 https://your-jenkins-server.com/job/Your-Job-Name/config.xml
 http://localhost:9090/job/PythonPlaywright_all_tests/config.xml
 -parameterize the jenkins job(command) with choice parameter($<parameter_name>). It will then appear in dropdown when you do build with parameters.
-e.g. you can parameterize the markers with coice options such as smoke, functional, regression, frameworktests, negative, billing etc.
+e.g. you can parameterize the markers with choice options such as smoke, functional, regression, frameworktests, negative, billing etc.
 pytest --tracing retain-on-failure -m "$marker" --html=reports/report.html --self-contained-html
+-Schedule the jenkins job with build triggers. You can choose to run Build Periodically.
+e.g. 0 9 * * *      -> this will run job everyday 9am and 0 minutes
+From left to right, the five fields represent:
+MINUTE: 0 (exactly on the hour) or H (a random minute within the hour. in above example anytime between 9:00 AM and 9:59 AM)
+HOUR: 9 (9 AM in 24-hour format)
+DAY OF MONTH: * (every day)
+MONTH: * (every month)
+DAY OF WEEK: * (every day of the week)
+-Handling Multiple Different Schedules
+# Schedule 1: Daily Smoke Tests at 9 AM
+H 9 * * * %ENV=production;SUITE=smoke
+
+# Schedule 2: Weekly Full Regression on Fridays at 11 PM
+H 23 * * 5 %ENV=staging;SUITE=full_regression
+
+# Schedule 3: Daily frameworktests Tests at 10 AM
+H 10 * * * %marker=frameworktests
+
+
+
 
 
 
