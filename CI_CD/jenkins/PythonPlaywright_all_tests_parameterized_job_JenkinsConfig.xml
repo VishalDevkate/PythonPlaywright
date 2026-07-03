@@ -1,4 +1,5 @@
 <project>
+<!-- This is a custom Freestyle job configuration parameterized for marker value -->
 <actions/>
 <description>all tests but with marker parameter</description>
 <keepDependencies>false</keepDependencies>

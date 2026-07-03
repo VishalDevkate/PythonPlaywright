@@ -1,4 +1,5 @@
 <project>
+<!-- This is a custom Freestyle job configuration to run all tests without any parameter -->
 <actions/>
 <description>All tests from PythonPlaywright project</description>
 <keepDependencies>false</keepDependencies>
