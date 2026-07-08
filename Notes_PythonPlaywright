@@ -93,9 +93,9 @@ e.g. Feature "blog" can contain multiple scenarios related to blog
 >jenkins (CI/CD)
 -always download the latest LTS(Long term support) version and .war file(generic java package)
 -Check Hardware and Software requirements section and install the required java version for above LTS
--got to .war file location install jenkins with below command
+-got to .war file location, install jenkins with below command. You need to run this command each time to start jenkins server and dont close cmd otherwise jenkins server will stop.
 java -jar jenkins.war --httpPort=9090
-here we have mentioned to run jenkins server on port 9090 while running on local. you can mention any port.
+here we have mentioned to run jenkins server on port 9090 while running on local. you can mention any port. The default port is 8080.
 -in Build steps, select execute shell and give the same cmd command to run playwright tests
 e.g. pytest --tracing retain-on-failure --html=reports/report.html --self-contained-html
 -Even though a Freestyle job doesn't have a Jenkinsfile, Jenkins stores the entire job configuration as an XML file behind the scenes. You can download this configuration directly via the URL:
@@ -121,6 +121,9 @@ H 23 * * 5 %ENV=staging;SUITE=full_regression
 
 # Schedule 3: Daily frameworktests Tests at 10 AM
 H 10 * * * %marker=frameworktests
+
+-Instead of running the jenkins server through cmd every time, you can also run jenkins as system service e.g. Windows Service or a Linux systemd daemon. It will start automatically whenever your computer boots up.
+The industry standard practice is using Docker containers combined with Infrastructure as Code (IaC)
 
 
 
